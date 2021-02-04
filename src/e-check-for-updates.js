@@ -28,11 +28,11 @@ try {
     .toString('utf8')
     .trim();
 
-  if (currentBranch !== 'master') {
+  /*if (currentBranch !== 'master') {
     fatal(
       `build-tools is checked out on ${currentBranch} and not 'master' - please switch and try again.`,
     );
-  }
+  }*/
 
   console.log(color.childExec('git', ['pull', '--rebase', '--autostash'], execOpts));
   cp.execSync('git pull --rebase --autostash', execOpts);
