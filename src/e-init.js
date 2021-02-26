@@ -29,22 +29,26 @@ function createConfig(options) {
   if (options.lsan) gn_args.push('is_lsan=true');
   if (options.msan) gn_args.push('is_msan=true');
   if (options.tsan) gn_args.push('is_tsan=true');
+  if (options.target_cpu) gn_args.push(`target_cpu="${options.target_cpu}"`);
 
   const electron = {
-    origin: options.useHttps
-      ? 'https://github.com/electron/electron.git'
-      : 'git@github.com:electron/electron.git',
-    ...(options.fork && {
-      fork: options.useHttps
-        ? `https://github.com/${options.fork}.git`
-        : `git@github.com:${options.fork}.git`,
-    }),
+    origin: 'https://github.com/yinzhou2018/electron.git',
+    upstream: 'https://github.com/electron/electron.git',
+    // origin: options.useHttps
+    //   ? 'https://github.com/electron/electron.git'
+    //   : 'git@github.com:electron/electron.git',
+    // ...(options.fork && {
+    //   fork: options.useHttps
+    //     ? `https://github.com/${options.fork}.git`
+    //     : `git@github.com:${options.fork}.git`,
+    // }),
   };
 
   const node = {
-    origin: options.useHttps
-      ? 'https://github.com/electron/node.git'
-      : 'git@github.com:electron/node.git',
+    origin: 'https://github.com/electron/node.git',
+    // origin: options.useHttps
+    //   ? 'https://github.com/electron/node.git'
+    //   : 'git@github.com:electron/node.git',
   };
 
   return {
@@ -77,7 +81,8 @@ function runGClientConfig(config) {
     '--name',
     'src/electron',
     '--unmanaged',
-    'https://github.com/electron/electron',
+    'https://github.com/yinzhou2018/electron',
+    // 'https://github.com/electron/electron',
   ];
   const opts = {
     cwd: root,
@@ -141,6 +146,10 @@ program
   .option(
     '--fork <username/electron>',
     `Add a remote fork of Electron with the name 'fork'. This should take the format 'username/electron'`,
+  )
+  .option(
+    '--target_cpu <cpu target>',
+    `Add cpu target with name 'taget_cpu', default match os arch.`,
   )
   .parse(process.argv);
 
