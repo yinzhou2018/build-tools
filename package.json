@@ -1,5 +1,5 @@
 {
-  "name": "build-tools",
+  "name": "electron-build-tools",
   "version": "0.2.0",
   "engines": {
     "node": ">= 10.12.0"
@@ -12,7 +12,7 @@
     "test": "nyc --reporter=lcov --reporter=text-summary jest --config=jest.fast.json",
     "test:all": "nyc --reporter=lcov --reporter=text-summary jest --config=jest.slow.json"
   },
-  "repository": "https://github.com/electron/build-tools",
+  "repository": "https://github.com/yinzhou2018/build-tools",
   "author": "Electron Authors",
   "license": "MIT",
   "dependencies": {
