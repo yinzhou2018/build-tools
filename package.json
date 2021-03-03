@@ -1,5 +1,5 @@
 {
-  "name": "@yinzhou/electron-build-tools",
+  "name": "electron-build-tools",
   "version": "0.2.0",
   "engines": {
     "node": ">= 10.12.0"
