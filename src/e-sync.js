@@ -10,20 +10,31 @@ const { ensureDir } = require('./utils/paths');
 const depot = require('./utils/depot-tools');
 
 function setRemotes(cwd, repo) {
+  const remotes = cp
+  .execSync('git remote', { cwd })
+  .toString()
+  .trim()
+  .split('\n');
+
   for (const remote in repo) {
     // First check that the fork remote exists.
     if (remote === 'fork') {
-      const remotes = cp
-        .execSync('git remote', { cwd })
-        .toString()
-        .trim()
-        .split('\n');
+    //   const remotes = cp
+    //     .execSync('git remote', { cwd })
+    //     .toString()
+    //     .trim()
+    //     .split('\n');
 
-      // If we've not added the fork remote, add it instead of updating the url.
-      if (!remotes.includes('fork')) {
-        cp.execSync(`git remote add ${remote} ${repo[remote]}`, { cwd });
-        break;
-      }
+    //   // If we've not added the fork remote, add it instead of updating the url.
+    //   if (!remotes.includes('fork')) {
+    //     cp.execSync(`git remote add ${remote} ${repo[remote]}`, { cwd });
+    //     break;
+    //   }
+    // }
+
+    if (!remotes.includes(remote)) {
+      cp.execSync(`git remote add ${remote} ${repo[remote]}`, { cwd });
+      break;
     }
 
     cp.execSync(`git remote set-url ${remote} ${repo[remote]}`, { cwd });

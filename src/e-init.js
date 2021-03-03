@@ -32,7 +32,7 @@ function createConfig(options) {
   if (options.target_cpu) gn_args.push(`target_cpu="${options.target_cpu}"`);
 
   const electron = {
-    origin: 'https://github.com/yinzhou2018/electron.git',
+    origin: options.origin || 'https://github.com/yinzhou2018/electron.git',
     upstream: 'https://github.com/electron/electron.git',
     // origin: options.useHttps
     //   ? 'https://github.com/electron/electron.git'
@@ -67,6 +67,7 @@ function createConfig(options) {
       GIT_CACHE_PATH: process.env.GIT_CACHE_PATH
         ? resolvePath(process.env.GIT_CACHE_PATH)
         : path.resolve(homedir, '.git_cache'),
+      DEPOT_TOOLS_WIN_TOOLCHAIN: process.env.DEPOT_TOOLS_WIN_TOOLCHAIN || 0,
     },
   };
 }
@@ -81,7 +82,7 @@ function runGClientConfig(config) {
     '--name',
     'src/electron',
     '--unmanaged',
-    'https://github.com/yinzhou2018/electron',
+    config.electron.origin,
     // 'https://github.com/electron/electron',
   ];
   const opts = {
@@ -138,15 +139,16 @@ program
     `Use Electron's custom deployment of Goma.  Can be "cache-only", "cluster" or "none".  The "cluster" mode is only available to maintainers`,
     'cache-only',
   )
-  .option(
-    '--use-https',
-    'During `e sync`, set remote origins with https://github... URLs instead of git@github...',
-    false,
-  )
-  .option(
-    '--fork <username/electron>',
-    `Add a remote fork of Electron with the name 'fork'. This should take the format 'username/electron'`,
-  )
+  // .option(
+  //   '--use-https',
+  //   'During `e sync`, set remote origins with https://github... URLs instead of git@github...',
+  //   false,
+  // )
+  // .option(
+  //   '--fork <username/electron>',
+  //   `Add a remote fork of Electron with the name 'fork'. This should take the format 'username/electron'`,
+  // )
+  .option('--origin <remote git repository url>', `Add your origin remote git repository url.`)
   .option(
     '--target_cpu <cpu target>',
     `Add cpu target with name 'taget_cpu', default match os arch.`,
