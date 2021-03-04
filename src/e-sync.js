@@ -11,14 +11,14 @@ const depot = require('./utils/depot-tools');
 
 function setRemotes(cwd, repo) {
   const remotes = cp
-  .execSync('git remote', { cwd })
-  .toString()
-  .trim()
-  .split('\n');
+    .execSync('git remote', { cwd })
+    .toString()
+    .trim()
+    .split('\n');
 
   for (const remote in repo) {
     // First check that the fork remote exists.
-    if (remote === 'fork') {
+    // if (remote === 'fork') {
     //   const remotes = cp
     //     .execSync('git remote', { cwd })
     //     .toString()
